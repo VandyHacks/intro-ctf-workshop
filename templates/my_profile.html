@@ -1,0 +1,16 @@
+<html>
+<body>
+<h1>Hi, {{username}}!</h1>
+<a href="/profile/{{username}}">View Public Profile Page</a>
+<h2>Profile</h2>
+<p>{{profile|safe}}</p>
+
+<h2>Update Profile</h2>
+<p>Now supports HTML for styling!</p>
+<form action="/update_profile" method="POST">
+    <textarea name="profile" id="profile" cols="30" rows="10"></textarea>
+    <br /><br />
+    <input type="submit" value="Update Profile">
+</form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<h1>Hello, {{name}}!</h1>
+
+<input id="filter" type="text" placeholder="Filter" />
+<button onclick="updateTable()">Filter</button>
+<br />
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
+
+<script>
+async function updateTable() {
+    const tbody = document.getElementById('tbody');
+    const filter = document.getElementById('filter');
+    const response = await fetch(`/api/products?filter=${filter.value}`);
+    const products = await response.json();
+    tbody.innerHTML = products.map(product => `
+        <tr>
+            <td>${product[0]}</td>
+            <td>${product[1]}</td>
+        </tr>
+    `).join('');
+}
+updateTable();
+</script>
