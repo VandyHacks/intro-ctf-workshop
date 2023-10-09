@@ -10,9 +10,9 @@ if os.path.exists(DATABASE_FILE):
 with sqlite3.connect(DATABASE_FILE) as conn:
     # Initial database setup
     cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-    cur.execute("INSERT INTO users (username, password) VALUES ('admin', 'adminwhatafind')")
-    cur.execute("INSERT INTO users (username, password) VALUES ('nisala', 'ohnomypassword')")
+    cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, active BOOLEAN)")
+    cur.execute("INSERT INTO users (username, password, active) VALUES ('admin', 'adminwhatafind', 1)")
+    cur.execute("INSERT INTO users (username, password, active) VALUES ('nisala', 'ohnomypassword', 1)")
 
     cur.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT, price REAL, released BOOLEAN)")
     cur.execute("INSERT INTO products (name, price, released) VALUES ('Apple', 1.99, 1)")
