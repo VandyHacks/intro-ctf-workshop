@@ -23,6 +23,8 @@ with sqlite3.connect(DATABASE_FILE) as conn:
 
 app = Flask(__name__)
 
+app.secret_key = "wowmysupersecretkeythatiwilluseforencryptingeverything"
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -42,7 +44,7 @@ def products_api():
         sfilter = request.args.get("filter")
         if sfilter is None:
             sfilter = ""
-        
+
         cur.execute(f"SELECT * FROM products WHERE released = 1 AND name LIKE '%{sfilter}%'")
         products = cur.fetchall()
         return json.dumps(products)
