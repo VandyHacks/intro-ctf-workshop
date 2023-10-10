@@ -1,6 +1,7 @@
 from flask import Flask, render_template, render_template_string, request
 import sqlite3
 import os
+import json
 
 DATABASE_FILE = "database.db"
 
@@ -44,4 +45,4 @@ def products_api():
         
         cur.execute(f"SELECT * FROM products WHERE released = 1 AND name LIKE '%{sfilter}%'")
         products = cur.fetchall()
-        return products
+        return json.dumps(products)
