@@ -1,8 +1,17 @@
 <html>
 <body>
-    <form action="/products" method="GET">
+    <form>
         Enter Your Name: <input type="text" name="name" id="name">
         <input type="submit" value="Submit">
     </form>
+
+    <script>
+        const name = document.getElementById('name');
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            window.location.href = `/products?name=${btoa(name.value)}`;
+        });
+    </script>
 </body>
 </html>

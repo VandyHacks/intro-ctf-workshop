@@ -2,6 +2,7 @@ from flask import Flask, render_template, render_template_string, request
 import sqlite3
 import os
 import json
+import base64
 
 DATABASE_FILE = "database.db"
 
@@ -32,16 +33,17 @@ def index():
 @app.route("/products")
 def products():
     name = request.args.get("name")
+    name = base64.b64decode(name).decode("utf-8")
     # couldn't figure out how to pass args to render_template
     file_data = open("templates/products.html", "r").read()
     file_data = file_data.replace("{{name}}", name)
     return render_template_string(file_data)
 
-@app.route("/api/products")
+@app.route("/api/products", methods=["POST"])
 def products_api():
     with sqlite3.connect(DATABASE_FILE) as conn:
         cur = conn.cursor()
-        sfilter = request.args.get("filter")
+        sfilter = request.form["filter"]
         if sfilter is None:
             sfilter = ""
 

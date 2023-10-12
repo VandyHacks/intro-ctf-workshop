@@ -20,7 +20,11 @@
 async function updateTable() {
     const tbody = document.getElementById('tbody');
     const filter = document.getElementById('filter');
-    const response = await fetch(`/api/products?filter=${filter.value}`);
+    const form = new FormData();
+    form.append('filter', filter.value);
+    const response = await fetch(`/api/products`, 
+        { method: 'POST', body: form }
+    );
     const products = await response.json();
     tbody.innerHTML = products.map(product => `
         <tr>
